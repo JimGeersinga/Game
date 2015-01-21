@@ -35,8 +35,8 @@ namespace Game.Migrations
                 context.Restaurants.AddOrUpdate(r => r.Name,
                      new Restaurant { Name = i.ToString(), City = "Somewhere", Country = "USA" });
             }
-            context.UserProfiles.AddOrUpdate(r => r.UserName,
-                new UserProfile { UserId = 1, UserName = "Jim", UserEmail = "jimchippy@hotmail.com", UserPoints = 0 });
+           // context.UserProfiles.AddOrUpdate(r => r.UserName,
+             //   new UserProfile { UserId = 1, UserName = "Jim", UserEmail = "jimchippy@hotmail.com", UserPoints = 0 });
            
         }
     }

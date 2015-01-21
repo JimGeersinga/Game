@@ -9,6 +9,6 @@ namespace Game.Models
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public int UserPoints { get; set; }
+        public int? UserPoints { get; set; }
     }
 }
