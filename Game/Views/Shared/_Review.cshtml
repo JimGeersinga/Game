@@ -1,0 +1,21 @@
+﻿@model Game.Models.RestaurantReview
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.City)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Country)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Rating)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = Model.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+    </td>
+</tr>

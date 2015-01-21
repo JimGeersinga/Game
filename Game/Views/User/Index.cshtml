@@ -1,0 +1,14 @@
+﻿@model IPagedList<UserListViewModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<form method="get" action="@Url.Action("Index")"
+      data-user-ajax="true" data-user-target="#userList">
+
+    <input type="search" name="searchTerm" data-user-autocomplete="@Url.Action("Autocomplete")" />
+    <input type="submit" value="Search by name" />
+</form>
+
+@Html.Partial("_Users", Model)

@@ -1,0 +1,23 @@
+﻿@model IPagedList<UserListViewModel>
+
+<div id="userList">
+
+    <div class="pagedList" data-user-target="#userList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <h4>@item.UserName</h4>
+            <div>
+                Points: @item.UserPoints
+            </div>
+            <hr />
+        </div>
+    }
+</div>
+
+
+
