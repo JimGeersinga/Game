@@ -39,7 +39,7 @@ namespace Game.Controllers
                     using (ExifReader reader = new ExifReader(tempPath))
                     {
                         Double[] GpsLongArray;
-                        Double[] GpsLatArray;
+                            Double[] GpsLatArray;
                         Double GpsLongDouble;
                         Double GpsLatDouble;
                         DateTime datePictureTaken;
