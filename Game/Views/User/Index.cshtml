@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@if (Request.IsAuthenticated) {
+    <form method="get" action="@Url.Action("Index")"
+          data-user-ajax="true" data-user-target="#userList">
 
-<form method="get" action="@Url.Action("Index")"
-      data-user-ajax="true" data-user-target="#userList">
+        <input type="search" name="searchTerm" data-user-autocomplete="@Url.Action("Autocomplete")" />
+        <input type="submit" value="Search by name" />
+    </form>
 
-    <input type="search" name="searchTerm" data-user-autocomplete="@Url.Action("Autocomplete")" />
-    <input type="submit" value="Search by name" />
-</form>
-
-@Html.Partial("_Users", Model)
+    @Html.Partial("_Users", Model)
+}

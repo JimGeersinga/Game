@@ -8,6 +8,7 @@ using PagedList;
 
 namespace Game.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         GameAppDb _db = new GameAppDb();

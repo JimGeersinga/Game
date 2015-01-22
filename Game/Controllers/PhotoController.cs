@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 
 namespace Game.Controllers
 {
+    [Authorize]
     public class PhotoController : Controller
     {
         private GameAppDb _db = new GameAppDb();
@@ -39,7 +40,7 @@ namespace Game.Controllers
                     using (ExifReader reader = new ExifReader(tempPath))
                     {
                         Double[] GpsLongArray;
-                            Double[] GpsLatArray;
+                        Double[] GpsLatArray;
                         Double GpsLongDouble;
                         Double GpsLatDouble;
                         DateTime datePictureTaken;
@@ -52,26 +53,46 @@ namespace Game.Controllers
                             {
                                 GpsLongDouble = GpsLongArray[0] + GpsLongArray[1] / 60 + GpsLongArray[2] / 3600;
                                 GpsLatDouble = GpsLatArray[0] + GpsLatArray[1] / 60 + GpsLatArray[2] / 3600;
+   
+                                var record = from r in _db.Photos
+                                             where r.Longitude == GpsLongDouble
+                                             && r.Latitude == GpsLatDouble
+                                             && r.PictureTaken == datePictureTaken
+                                             orderby r.Id
+                                             select r.Id;
 
-                                _db.Photos.Add(new Photo
-                                {
-                                    UserId = WebSecurity.GetUserId(User.Identity.Name),
-                                    imgPath = path,
-                                    Longitude = GpsLongDouble,
-                                    Latitude = GpsLatDouble,
-                                    PictureTaken = datePictureTaken
-                                });
-                                _db.SaveChanges();
-                             }
+                                if(record.Count() == 0)
+                                { 
+                                    _db.Photos.Add(new Photo
+                                    {
+                                        UserId = WebSecurity.GetUserId(User.Identity.Name),
+                                        imgPath = path,
+                                        Longitude = GpsLongDouble,
+                                        Latitude = GpsLatDouble,
+                                        PictureTaken = datePictureTaken
+                                    });
+
+                                    _db.SaveChanges();
+
+                                    System.IO.File.Move(tempPath, path);
+                                    ViewBag.Message = "Photo uploaded successfully";
+                               }
+                               else
+                               {
+                                   throw new Exception("Photo already exists!");
+                               }
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("The Photo does not contain GPS info!");
                         }
                     }
-                    System.IO.File.Move(tempPath, path);
-                    ViewBag.Message = "File uploaded successfully";
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     System.IO.File.Delete(tempPath);
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString() + "!";
+                    ViewBag.Message = "The Photo does not contain GPS info!";
                 }
             }
             else

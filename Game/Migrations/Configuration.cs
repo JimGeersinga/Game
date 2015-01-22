@@ -6,6 +6,8 @@ namespace Game.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web.Security;
+    using WebMatrix.WebData;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Game.Models.GameAppDb>
     {
@@ -35,9 +37,30 @@ namespace Game.Migrations
                 context.Restaurants.AddOrUpdate(r => r.Name,
                      new Restaurant { Name = i.ToString(), City = "Somewhere", Country = "USA" });
             }
-           // context.UserProfiles.AddOrUpdate(r => r.UserName,
-             //   new UserProfile { UserId = 1, UserName = "Jim", UserEmail = "jimchippy@hotmail.com", UserPoints = 0 });
-           
+
+            SeedMembership();
+        }
+
+        private void SeedMembership()
+        {
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection", 
+                "UserProfile", "UserId", "UserName", autoCreateTables: true);
+
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            var membership = (SimpleMembershipProvider)Membership.Provider;
+
+            if(!roles.RoleExists("Admin"))
+            {
+                roles.CreateRole("Admin");
+            }
+            if(membership.GetUser("Insanity", false) == null)
+            {
+                membership.CreateUserAndAccount("Insanity", "test1234");
+            }
+            if(!roles.GetRolesForUser("Insanity").Contains("Admin"))
+            {
+                roles.AddUsersToRoles(new[] { "Insanity" }, new[] { "Admin" });
+            }
         }
     }
 }

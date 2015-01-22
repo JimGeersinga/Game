@@ -1,29 +1,30 @@
 ﻿@model Game.Models.Photo
 
-@{
-    ViewBag.Title = "Upload";
-}
+    @{
+        ViewBag.Title = "Upload";
+    }
 
-<h2>Upload</h2>
-@ViewBag.message
-<br />
-@ViewBag.Info
-@ViewBag.Time
+    <h2>Upload</h2>
+    @ViewBag.message
+    <br />
+    @ViewBag.Info
+    @ViewBag.Time
 
 
-@using (Html.BeginForm("Upload", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm("Upload", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Photo</legend>
+        <fieldset>
+            <legend>Photo</legend>
 
-            <input type="file" name="file" value="" />
-            <input type="submit" value="Upload" />
-    </fieldset>
-}
+                <input type="file" name="file" value="" />
+                <input type="submit" value="Upload" />
+        </fieldset>
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
