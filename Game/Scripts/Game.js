@@ -51,6 +51,8 @@ $(function () {
         });
         return false;
     };
+
+
     $("form[data-User-Ajax='true']").submit(ajaxFormSubmit);
     $("input[data-User-autocomplete]").each(createAutocomplete);
 

@@ -754,3 +754,7 @@ tr.pager td {
             margin: 0;
         }
 }
+.myPictures{
+    max-width:250px;
+    max-height:250px;
+}

@@ -16,6 +16,7 @@ namespace Game
                     "~/Scripts/Game.js"
                     ));
 
+  
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));

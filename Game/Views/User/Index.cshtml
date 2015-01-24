@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@if (Request.IsAuthenticated) {
+
     <form method="get" action="@Url.Action("Index")"
           data-user-ajax="true" data-user-target="#userList">
 
@@ -12,4 +12,3 @@
     </form>
 
     @Html.Partial("_Users", Model)
-}

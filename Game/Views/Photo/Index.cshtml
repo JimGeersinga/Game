@@ -1,0 +1,24 @@
+﻿@model IPagedList<PhotoListViewModel>
+
+@{
+    ViewBag.Title = "My Pictures";
+}
+
+
+
+@ViewBag.message
+
+@using (Html.BeginForm("Upload", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Photo</legend>
+
+        <input type="file" name="file" value="" />
+        <input type="submit" value="Upload" />
+    </fieldset>
+}
+
+@Html.Partial("_Photos", Model)

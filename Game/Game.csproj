@@ -216,6 +216,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\GameAppDb.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotoListViewModel.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\RestaurantListViewModel.cs" />
     <Compile Include="Models\RestaurantReview.cs" />
@@ -296,6 +297,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\masonry.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -351,7 +353,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_Users.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
-    <Content Include="Views\Photo\Upload.cshtml" />
+    <Content Include="Views\Photo\Index.cshtml" />
+    <Content Include="Views\Photo\_Photos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

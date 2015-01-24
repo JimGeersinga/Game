@@ -1,0 +1,18 @@
+﻿@model IPagedList<PhotoListViewModel>
+
+<div id="photoList">
+
+    <div class="pagedList" data-user-target="#photoList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+            PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+    <div class="containers">
+        @foreach (var item in Model)
+        {
+       
+            <img src="@Url.Content(item.imgPath)" class="myPictures @item.Orientation" alt="@item.imgName" />
+
+        }
+    </div>
+</div>
+
