@@ -22,9 +22,9 @@ namespace Game
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "522384821237558",
+                appSecret: "29a7ba3b4f6d8b7da79dc91bfbbfc17f");
 
             OAuthWebSecurity.RegisterGoogleClient();
         }
