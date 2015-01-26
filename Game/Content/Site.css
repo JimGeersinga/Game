@@ -585,7 +585,11 @@ td {
 tr.pager td {
     padding: 0 0.25em 0 0;
 }
-
+#map-canvas {
+        width: 60%;
+        height: 400px;
+        background-color: #CCC;
+    }
 
 /********************
 *   Mobile Styles   *
@@ -750,11 +754,16 @@ tr.pager td {
         padding: 10px 0;
     }
 
-        footer p {
-            margin: 0;
-        }
+    footer p {
+        margin: 0;
+    }
+
+    #map-canvas {
+        width: 100%;
+
+    }
 }
 .myPictures{
-    max-width:250px;
-    max-height:250px;
+    max-height: 200px;
+    max-width:200px;
 }
