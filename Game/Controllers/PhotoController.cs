@@ -8,6 +8,9 @@ using ExifLib;
 using Game.Models;
 using WebMatrix.WebData;
 using PagedList;
+using System.Drawing;
+using Goheer.EXIF;
+using System.Drawing.Imaging;
 
 namespace Game.Controllers
 {
@@ -41,97 +44,79 @@ namespace Game.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                string tempPath = Path.Combine(Server.MapPath("~/Images/uploads/temp"), Path.GetFileName(file.FileName));
-                string path = Path.Combine(Server.MapPath("~/Images/uploads"), Path.GetFileName(file.FileName));
-                
+                var Photo = _db.Photos.OrderByDescending(p => p.Id).FirstOrDefault();
+                string oldFileName = Path.GetFileName(file.FileName);
+                string[] name = oldFileName.Split('.');
+                int id = (Photo == null) ? 0 : Photo.Id;                   
+                string newFileName = (Convert.ToInt16(id) + 1).ToString() + "." + name[1];
+                string tempPath = Path.Combine(Server.MapPath("~/Images/uploads/temp"), newFileName);
+                string path = Path.Combine(Server.MapPath("~/Images/uploads"), newFileName);
                 file.SaveAs(tempPath);
                 
-                    try
+                try
+                {
+                    using (ExifReader reader = new ExifReader(tempPath))
                     {
-                        using (ExifReader reader = new ExifReader(tempPath))
-                        {
-                            Double[] GpsLongArray;
-                            Double[] GpsLatArray;
-                            UInt16 Orientation;
-                            Double GpsLongDouble;
-                            Double GpsLatDouble;
-                            DateTime datePictureTaken;
-                            String Oname;
+                        Double[] GpsLongArray;
+                        Double[] GpsLatArray;
+                        UInt16 Orientation;
+                        Double GpsLongDouble;
+                        Double GpsLatDouble;
+                        DateTime datePictureTaken;
 
-                            reader.GetTagValue<UInt16>(ExifTags.Orientation, out Orientation);
+                        if (reader.GetTagValue<Double[]>(ExifTags.GPSLongitude, out GpsLongArray)
+                            && reader.GetTagValue<Double[]>(ExifTags.GPSLatitude, out GpsLatArray)
+                            && reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken)
+                            && reader.GetTagValue<UInt16>(ExifTags.Orientation, out Orientation))
+                        {                                
+                            GpsLongDouble = GpsLongArray[0] + GpsLongArray[1] / 60 + GpsLongArray[2] / 3600;
+                            GpsLatDouble = GpsLatArray[0] + GpsLatArray[1] / 60 + GpsLatArray[2] / 3600;
 
-                            if (reader.GetTagValue<Double[]>(ExifTags.GPSLongitude, out GpsLongArray)
-                                && reader.GetTagValue<Double[]>(ExifTags.GPSLatitude, out GpsLatArray))
-                            {
-                                if (reader.GetTagValue<DateTime>
-                                (ExifTags.DateTimeDigitized, out datePictureTaken))
-                                {
-                                    GpsLongDouble = GpsLongArray[0] + GpsLongArray[1] / 60 + GpsLongArray[2] / 3600;
-                                    GpsLatDouble = GpsLatArray[0] + GpsLatArray[1] / 60 + GpsLatArray[2] / 3600;
-
+                            var record = from r in _db.Photos
+                                            where r.Longitude == GpsLongDouble
+                                            && r.Latitude == GpsLatDouble
+                                            && r.PictureTaken == datePictureTaken
+                                            orderby r.Id
+                                            select r.Id;
                                     
-                                    var record = from r in _db.Photos
-                                                 where r.Longitude == GpsLongDouble
-                                                 && r.Latitude == GpsLatDouble
-                                                 && r.PictureTaken == datePictureTaken
-                                                 orderby r.Id
-                                                 select r.Id;
-                                    if (Orientation == 1)
-                                    {
-                                        Oname = "Landscape";
-                                    }else{
-                                        Oname = "Portrait";   
-                                    }
-                                    if (record.Count() == 0)
-                                    {
-                                        _db.Photos.Add(new Photo
-                                        {
-                                            UserId = WebSecurity.GetUserId(User.Identity.Name),
-                                            imgName = file.FileName,
-                                            imgPath = path,
-                                            Longitude = GpsLongDouble,
-                                            Latitude = GpsLatDouble,
-                                            Orientation = Oname,
-                                            PictureTaken = datePictureTaken
-                                        });
+                            if (record.Count() == 0) {
+                                _db.Photos.Add(new Photo {
+                                    UserId = WebSecurity.GetUserId(User.Identity.Name),
+                                    imgName = newFileName,
+                                    imgPath = path,
+                                    Longitude = GpsLongDouble,
+                                    Latitude = GpsLatDouble,
+                                    Orientation = Orientation,
+                                    PictureTaken = datePictureTaken
+                                });
 
-                                        _db.SaveChanges();
-
-                                        reader.Dispose();
-                                        System.IO.File.Move(tempPath, path);
-                                        ViewBag.Message = "Photo uploaded successfully";
-
-                                    }
-                                    else
-                                    {
-                                        reader.Dispose();
-                                        System.IO.File.Delete(tempPath);
-                                        ViewBag.Message = "Photo already exists!";
-                                    }
-                                }
+                                reader.Dispose();
+                                System.IO.File.Move(tempPath, path);
+                                Photo.Rotate(path);
+                                _db.SaveChanges();                                   
+                                ViewBag.Message = "Photo uploaded successfully";
                             }
-                            else
-                            {
+                            else {
                                 reader.Dispose();
                                 System.IO.File.Delete(tempPath);
-                                ViewBag.Message = "The Photo does not contain GPS info!";
+                                ViewBag.Message = "Photo already exists!";
                             }
                         }
+                        else {
+                            System.IO.File.Delete(tempPath);
+                            ViewBag.Message = "The Photo does not contain GPS info!";
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        System.IO.File.Delete(tempPath);
-                        ViewBag.Message = ex.Message.ToString();
-                    }
-                
+                }
+                catch (Exception ex) {
+                    System.IO.File.Delete(tempPath);
+                    ViewBag.Message = ex.Message.ToString();
+                }
             }
-            else
-            {
+            else {
                 ViewBag.Message = "You have not specified a file.";
             }
-
             return RedirectToAction("Index", "Photo", new { error = ViewBag.Message });
-        }
-
+        } 
     }
 }
