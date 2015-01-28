@@ -103,6 +103,7 @@ namespace Game.Controllers
                             }
                         }
                         else {
+                            reader.Dispose();
                             System.IO.File.Delete(tempPath);
                             ViewBag.Message = "The Photo does not contain GPS info!";
                         }

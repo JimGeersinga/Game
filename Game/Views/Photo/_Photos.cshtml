@@ -8,10 +8,8 @@
     </div>
     <div class="containers">
         @foreach (var item in Model)
-        {
-       
+        {       
             <img src="@Url.Content(item.imgPath)" class="myPictures @item.Orientation" alt="@item.imgName" />
-
         }
     </div>
 </div>

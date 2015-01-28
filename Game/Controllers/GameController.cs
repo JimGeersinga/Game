@@ -13,7 +13,7 @@ namespace Game.Controllers
 
         public ActionResult Index()
         {
-          ViewBag.Distance = distance(32.9697, -96.80322, 29.46786, -98.53506);
+            ViewBag.imgPath = "~/Images/uploads/1.jpg";
             return View();
         }
 

@@ -6,6 +6,15 @@
 <script>
    
 </script>
-<div id="map-canvas"></div>
-<h2>The Image</h2>
-distance = @ViewBag.distance
+
+<div class="gameContainer">
+
+    <div id="map-canvas"></div>
+
+    <div class="imageContainer">
+        <div class="img">
+            <img src="@Url.Content(ViewBag.imgPath)" alt="" />
+        </div>
+        <input type="submit" class="answere" value="This is my answere" />
+    </div>
+</div>
