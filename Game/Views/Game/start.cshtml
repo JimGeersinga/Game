@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="gameContainer">
+
+    <div id="map-canvas"></div>
+
+    <div class="imageContainer">
+        <div class="img">
+            <img src="@Url.Content(ViewBag.imgPath)" alt="" />
+        </div>
+        @using(Html.BeginForm("Result", "Game", new { id = @ViewBag.Id }, FormMethod.Post, null)){
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="lng" name="Lng" value="" />
+            <input type="hidden" id="lat" name="lat" value="" />
+
+            <input type="submit" class="answere" value="This is my answer" />
+        }
+    </div>
+</div>

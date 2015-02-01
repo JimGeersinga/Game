@@ -6,10 +6,13 @@
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
             PagedListRenderOptions.MinimalWithItemCountText)
     </div>
+    
     <div class="containers">
         @foreach (var item in Model)
-        {       
-            <img src="@Url.Content(item.imgPath)" class="myPictures @item.Orientation" alt="@item.imgName" />
+        {
+            <a class="hoverimage" href="/Game/start/@item.Id">
+                <img src="@Url.Content(item.imgPath)" class="myPictures @item.Orientation" alt="@item.imgName" />
+            </a>
         }
     </div>
 </div>

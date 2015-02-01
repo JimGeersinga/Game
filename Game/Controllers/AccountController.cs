@@ -16,6 +16,13 @@ namespace Game.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        public ActionResult GetPoints()
+        {
+            GameAppDb _db = new GameAppDb();
+            UserProfile User = _db.UserProfiles.Find(WebSecurity.CurrentUserId);
+            string points = Convert.ToString(User.UserPoints);
+            return Content(points);
+        }
         //
         // GET: /Account/Login
 

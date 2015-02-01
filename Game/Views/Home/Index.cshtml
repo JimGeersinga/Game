@@ -1,14 +1,5 @@
-﻿@model IPagedList<RestaurantListViewModel>
-
-@{
-    ViewBag.Title = "Home Page";
+﻿@{
+    ViewBag.Title = "Index";
 }
 
-<form method="get" action="@Url.Action("Index")"
-      data-user-ajax="true" data-user-target="#restaurantList">
-
-    <input type="search" name="searchTerm" data-user-autocomplete="@Url.Action("Autocomplete")" />
-    <input type="submit" value="Search by name" />
-</form>
-
-@Html.Partial("_Restaurants", Model)
+<h2>Welcome to the Geo Game</h2>

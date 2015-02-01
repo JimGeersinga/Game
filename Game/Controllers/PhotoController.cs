@@ -81,7 +81,7 @@ namespace Game.Controllers
                                     
                             if (record.Count() == 0) {
                                 _db.Photos.Add(new Photo {
-                                    UserId = WebSecurity.GetUserId(User.Identity.Name),
+                                    UserId = WebSecurity.CurrentUserId,
                                     imgName = newFileName,
                                     imgPath = path,
                                     Longitude = GpsLongDouble,

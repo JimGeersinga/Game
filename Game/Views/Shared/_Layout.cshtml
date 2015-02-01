@@ -26,7 +26,7 @@
                             @if (Request.IsAuthenticated) {                                
                                 <li>@Html.ActionLink("Users", "Index", "User")</li>
                                 <li>@Html.ActionLink("Game", "Index", "Game")</li>
-                                <li>@Html.ActionLink("My Pictures", "Index", "Photo")</li>                               
+                                <li>@Html.ActionLink("Photos", "Index", "Photo")</li>                               
                             }
                             
 
@@ -50,6 +50,9 @@
             </div>
         </footer>
 
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuC_zX_4CXx_3pUuMkZpytAh_KDuwkVrQ">
+        </script>
         @Scripts.Render("~/bundles/Game")
         @RenderSection("scripts", required: false)
     </body>

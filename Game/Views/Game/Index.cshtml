@@ -1,20 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Index";
-
+    ViewBag.Title = "index";
 }
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-<script>
-   
-</script>
 
-<div class="gameContainer">
-
-    <div id="map-canvas"></div>
-
-    <div class="imageContainer">
-        <div class="img">
-            <img src="@Url.Content(ViewBag.imgPath)" alt="" />
-        </div>
-        <input type="submit" class="answere" value="This is my answere" />
-    </div>
-</div>
+ @Html.ActionLink("Pick a Photo", "Index", "Photo")
+ @Html.ActionLink("Random Photo", "start", "Game")

@@ -72,9 +72,9 @@ $(function () {
     var markers = [];
 
     function initialize() {
-        var haightAshbury = new google.maps.LatLng(37.7699298, -122.4469157);
+        var haightAshbury = new google.maps.LatLng(27.059125784374068, 14.4140625);
         var mapOptions = {
-            zoom: 12,
+            zoom: 1,
             center: haightAshbury,
             mapTypeId: google.maps.MapTypeId.HYBRID
         };
@@ -91,6 +91,9 @@ $(function () {
             console.log("Latitude = " + lat);
             console.log("Longitude = " + lng);
             console.log("");
+
+            $("#lat").val(lat);
+            $("#lng").val(lng);
         });
 
     }

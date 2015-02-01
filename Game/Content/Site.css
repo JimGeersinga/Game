@@ -122,7 +122,7 @@ footer {
     clear: both;
     background-color: #e2e2e2;
     font-size: .8em;
-    height: 100px;
+    height: 50px;
 }
 
 
@@ -760,10 +760,6 @@ tr.pager td {
         margin: 0;
     }
 
-    #map-canvas {
-        width: 40%;
-
-    }
 }
 .myPictures{
     max-height: 150px;
@@ -795,3 +791,13 @@ input.answere{
     padding:10px;
     margin: 40px auto;
 }
+ a.hoverimage:hover img {
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        }
+        a.hoverimage {
+            text-decoration: none;
+            background: none;            
+        } 
+        a.hoverimage:hover {
+            text-decoration: none;
+        }
