@@ -11,7 +11,7 @@
         @foreach (var item in Model)
         {
             <a class="hoverimage" href="/Game/start/@item.Id">
-                <img src="@Url.Content(item.imgPath)" class="myPictures @item.Orientation" alt="@item.imgName" />
+                <img src="@Url.Content(item.imgPath)" class="myPictures" alt="" />
             </a>
         }
     </div>

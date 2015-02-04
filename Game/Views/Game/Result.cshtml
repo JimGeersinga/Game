@@ -3,3 +3,11 @@
 }
 
 <h2>Your Points = @ViewBag.Points</h2>
+distance: @ViewBag.Distance <br />
+<div id="map-canvas"></div>
+<input type="hidden" id="lon1" value="@ViewBag.lon1" />
+<input type="hidden" id="lat1" value="@ViewBag.lat1" />
+<input type="hidden" id="lon2" value="@ViewBag.lon2" />
+<input type="hidden" id="lat2" value="@ViewBag.lat2" />
+
+@Scripts.Render("~/bundles/result")

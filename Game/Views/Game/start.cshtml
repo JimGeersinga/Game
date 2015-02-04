@@ -12,6 +12,7 @@
         </div>
         @using(Html.BeginForm("Result", "Game", new { id = @ViewBag.Id }, FormMethod.Post, null)){
             @Html.AntiForgeryToken()
+            
 
             <input type="hidden" id="lng" name="Lng" value="" />
             <input type="hidden" id="lat" name="lat" value="" />
@@ -20,3 +21,4 @@
         }
     </div>
 </div>
+@Scripts.Render("~/bundles/start")

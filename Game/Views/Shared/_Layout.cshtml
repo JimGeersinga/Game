@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Geo Game</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/themes/base/css")
@@ -45,14 +45,10 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - Geo Game by InsanityWeb (In production...)</p>
                 </div>
             </div>
         </footer>
-
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuC_zX_4CXx_3pUuMkZpytAh_KDuwkVrQ">
-        </script>
         @Scripts.Render("~/bundles/Game")
         @RenderSection("scripts", required: false)
     </body>

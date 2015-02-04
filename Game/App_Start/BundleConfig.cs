@@ -9,14 +9,31 @@ namespace Game
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/Game").Include(
-                    "~/Scripts/jquery-{version}.js",
-                    "~/Scripts/jquery-ui-{version}.js",
-                    "~/Scripts/jquery.unobtrusive*",
-                    "~/Scripts/jquery.validate*",
-                    "~/Scripts/Game.js"
-                    ));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/Game.js"
+                        ));
 
-  
+            bundles.Add(new ScriptBundle("~/bundles/start").Include(
+                       "~/Scripts/jquery-{version}.js",
+                       "~/Scripts/jquery-ui-{version}.js",
+                       "~/Scripts/jquery.unobtrusive*",
+                       "~/Scripts/jquery.validate*",
+                       "~/Scripts/googleMapsApi.js",
+                       "~/Scripts/Game.js",
+                       "~/Scripts/start.js"
+                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/result").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/googleMapsApi.js",
+                        "~/Scripts/Game.js",
+                        "~/Scripts/result.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));

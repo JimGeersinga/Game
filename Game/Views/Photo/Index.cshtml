@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Photos";
 }
-
-
+<h2>@ViewBag.head</h2>
+@ViewBag.message
+@Html.ActionLink("All Pictures", "Index", "Photo")
+@Html.ActionLink("Played Pictures", "PlayedPictures", "Photo")
 
 @ViewBag.message
 

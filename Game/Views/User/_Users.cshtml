@@ -7,16 +7,7 @@
             PagedListRenderOptions.MinimalWithItemCountText)
         </div>
 
-        @foreach (var item in Model)
-        {
-            <div>
-                <h4>@item.UserName</h4>
-                <div>
-                    Points: @item.UserPoints
-                </div>
-                <hr />
-            </div>
-        }
+        @Html.Partial("_UserBlocks", Model)
     </div>
 
 

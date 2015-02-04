@@ -3,3 +3,10 @@
 }
 
 <h2>Welcome to the Geo Game</h2>
+<br />
+<form action="/game" method="get">
+    <input type="submit" value="Start Game" />
+</form>
+<br />
+<h3>Top 3 players</h3>
+@Html.Action("BestUsers","User")

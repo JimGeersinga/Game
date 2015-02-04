@@ -27,16 +27,42 @@ namespace Game.Controllers
                     .Select(r => new PhotoListViewModel
                     {
                         Id = r.Id,
-                        imgName = r.imgName,
                         imgPath = "~/Images/uploads/" + r.imgName,
-                        Orientation = r.Orientation
                     }).ToPagedList(page, 10);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Photos", model);
             }
+            ViewBag.head = "All Pictures";
             ViewBag.Message = error;
             return View(model);
+        }
+
+        public ActionResult PlayedPictures(int page = 1, string error = "")
+        {
+            int UserID =  WebSecurity.CurrentUserId;
+
+            var model =
+                _db.Photos
+                .Join(_db.Scores,
+                    photo => photo.Id,
+                    Score => Score.ImgId,
+                    (photo, Score) => new { photo, Score })
+                .Where(m => m.photo.UserId == UserID)
+                .OrderBy(m => m.photo.Id)
+                .Select(m => new PhotoListViewModel
+                {
+                    Id = m.photo.Id,
+                    imgPath = "~/Images/uploads/" + m.photo.imgName,
+                }).ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Photos", model);
+            }
+            ViewBag.head = "Played Pictures";
+            ViewBag.Message = error;
+            return View("Index", model);
         }
 
         [HttpPost]

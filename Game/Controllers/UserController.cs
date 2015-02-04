@@ -13,6 +13,21 @@ namespace Game.Controllers
     {
         GameAppDb _db = new GameAppDb();
 
+        public ActionResult BestUsers()
+        {
+            var model =
+                 _db.UserProfiles
+                     .OrderByDescending(r => r.UserPoints)
+                     .Take(3)
+                     .Select(r => new UserListViewModel
+                     {
+                         UserId = r.UserId,
+                         UserName = r.UserName,
+                         UserPoints = r.UserPoints
+                     });
+            return PartialView("_UserBlocks", model);
+        }
+
         public ActionResult AutoComplete(string term)
         {
             var model =
